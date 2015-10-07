@@ -1,0 +1,155 @@
+/*============================================================= Authour URL: www.designbootstrap.com  http://www.designbootstrap.com/
+ License: MIT
+ http://opensource.org/licenses/MIT
+ 100% Free To use For Personal And Commercial Use.
+ IN EXCHANGE JUST TELL PEOPLE ABOUT THIS WEBSITE 
+========================================================  */
+/* ============================================================= GENERAL STYLES ============================================================ */
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+/* FREE GOOGLE FONT */
+body { font-family: 'Roboto', sans-serif; line-height: 30px; }
+
+.set-radius-zero { border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; }
+
+.content-wrapper { margin-top: 40px; min-height: 600px; padding-bottom: 60px; }
+
+.page-head-line { font-weight: 900; padding-bottom: 20px; border-bottom: 2px solid #f2dca4; text-transform: uppercase; color: #a69771; font-size: 20px; margin-bottom: 40px; }
+
+.btn { border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; }
+
+.progress { height: 8px; border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; }
+
+.login-icon { height: 60px; width: 60px; padding: 13px; border-radius: 50%; font-size: 30px; margin-bottom: 20px; color: #fff; text-align: center; cursor: pointer; background-color: #F0677C; -webkit-border-radius: 50%; -moz-border-radius: 50%; }
+
+/* ============================================================= HEADER SECTION STYLES ============================================================ */
+header { background-color: #f2dca4; color: #484848; padding: 10px; text-align: right; }
+
+/* ============================================================= LOGO SECTION STYLES ============================================================ */
+.left-div { padding-left: 30px; margin-top: 40px; margin-bottom: 30px; }
+
+.navbar-brand { width: 250px; padding-top: 30px; }
+
+/* USER SETTINGS DIV */
+.user-settings-wrapper .nav > li > a { position: relative; display: block; padding: 15px 18px; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; height: 60px; width: 60px; background-color: #F0677C; color: #fff; }
+
+.user-settings-wrapper { margin-top: 10px; }
+
+.user-settings-wrapper li { display: inline-block; }
+
+.user-settings-wrapper .dropdown-settings { width: 200px; padding: 10px; }
+
+.user-settings-wrapper .nav > li > a:hover, .user-settings-wrapper .nav > li > a:focus { text-decoration: none; background-color: #C36464 !important; }
+
+.user-settings-wrapper img { height: 64px; width: 64px; border: 1px solid #000000; }
+
+.user-settings-wrapper .dropdown-menu { margin: 0px; border-radius: 0px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; }
+
+.user-settings-wrapper .btn { border-radius: 0px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; }
+
+.user-settings-wrapper .media-heading { padding-top: 10px; }
+
+/* MENU LINKS SECTION*/
+.menu-section { background-color: #f0f0f0; }
+
+#menu-top a { color: #484848; text-decoration: none; font-weight: 500; padding: 10px 10px 10px 10px; text-transform: uppercase; }
+
+.menu-top-active { background-color: #a69771; color: #fff !important; }
+
+.menu-section .nav > li > a:hover, .menu-section .nav > li > a:focus { background-color: #baae90 !important; color: #fff !important; }
+
+.menu-section .dropdown-menu > li > a:hover, .menu-section .dropdown-menu > li > a:focus { background-color: #baae90 !important; color: #fff !important; }
+
+.navbar-inverse { background-color: #a69771; border-color: transparent; }
+
+.navbar-toggle { background-color: #F0677C; border: 1px solid #fff; }
+
+.navbar { margin-bottom: 0px; }
+
+/* ============================================================= FOOTER SECTION STYLES ============================================================ */
+footer { padding: 10px; color: #fff; font-size: 12px; background-color: #0f0f0f; }
+
+footer a, footer a:hover { color: #fff; text-decoration: none; }
+
+/*============================================== DASHBOARD  STYLES     =============================================*/
+/* DASHBOARD ICONS */
+.bk-clr-one { background-color: #B9B739; }
+
+.bk-clr-two { background-color: #F94C4C; }
+
+.bk-clr-three { background-color: #119c7e; }
+
+.bk-clr-four { background-color: #b739b9; }
+
+.dashboard-div-icon { height: 75px; width: 75px; border: 2px solid #fff; padding: 20px; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; font-size: 30px; margin-bottom: 20px; color: #fff; }
+
+.dashboard-div-wrapper { border-radius: 5px; text-align: center; padding: 15px; color: #fff; margin-bottom: 50px; }
+
+.dashboard-div-wrapper .progress { height: 2px; }
+
+/* NOTICE BOARD */
+.notice-board .panel { border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; }
+
+.notice-board ul { padding-left: 0px; list-style: none; }
+
+.notice-board li { padding: 10px; border-bottom: 1px solid #E5E5E5; }
+
+.notice-board li span { margin-right: 10px; border: 1px solid #DBDBDB; padding: 5px; }
+
+.notice-board li a, li a:hover { text-decoration: none; color: #000; }
+
+/* SOCIAL BUTTONS */
+.btn-social { color: white; opacity: 0.8; }
+
+.btn-social:hover { color: white; opacity: 1; text-decoration: none; }
+
+.btn-facebook { background-color: #3b5998; }
+
+.btn-twitter { background-color: #00aced; }
+
+.btn-linkedin { background-color: #0e76a8; }
+
+.btn-google { background-color: #c32f10; }
+
+.wrap-area { display: none; }
+
+.wrap-btn { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #f2dca4; }
+
+.mot-album img { margin: auto; }
+.mot-album h4.title-album { text-align: center; }
+.mot-album p.sl-img { text-align: center; color: red; }
+.mot-album .khung { text-align: center; }
+
+.fileUpload { position: relative; overflow: hidden; margin: 10px; }
+.fileUpload input.upload { position: absolute; top: 0; right: 0; margin: 0; padding: 0; font-size: 20px; cursor: pointer; opacity: 0; filter: alpha(opacity=0); }
+
+#menu-top li { position: relative; }
+#menu-top li .submenu { list-style-type: none; padding: 0; position: absolute; left: 0; top: 101%; background: #f2dca4; width: 120%; border: none; }
+#menu-top li .submenu li { display: block; float: none; border-bottom: 1px solid #a69771; }
+#menu-top li .submenu li:last-child { border-bottom: none; }
+#menu-top li .submenu li a { display: block; color: #8c7d58; padding: 8px; font-size: 12px; }
+
+.select-album { width: 30%; max-width: 200px; border-radius: 3px; padding: 6px; display: inline-block; }
+
+ul.list-img { margin: 0; padding: 0; list-style-type: none; }
+ul.list-img li { display: inline-block; width: 20%; padding: 5px; float: left; }
+ul.list-img li div.each-img { background: #ededed; padding: 5px; border-radius: 3px; text-align: center; }
+ul.list-img li div.each-img p { margin: 0; }
+ul.list-img li div.each-img p input { text-align: center; border: 1px solid #bcbcbc; border-radius: 3px; display: inline-block; }
+ul.list-img li div.each-img img { width: 130px; height: 130px; }
+
+/** CREATE MULTI IMAGE **/
+#preview_img { padding: 10px 0; overflow: hidden; }
+
+li.img_group { display: block; width: 20%; float: left; margin-right: 10px; margin-bottom: 10px; list-style-type: none; position: relative; }
+
+li.img_group span.remove_btn { position: absolute; top: 5px; right: 5px; cursor: pointer; }
+
+li.img_group span.remove_btn img { border: none; }
+
+li.img_group img { border-radius: 10px; border: 2px solid #c9c9c9; max-height: 108px; margin-bottom: 10px; }
+
+.group-img { position: relative; margin: 10px; text-align: center; }
+.group-img .img_replace { display: inline-block; padding: 3px 15px; background: #e8935f; border-radius: 4px; color: white; font-size: 12px; position: relative; z-index: 1; }
+.group-img input.btn-img { opacity: 0; position: absolute; top: 0; left: 0; z-index: 2; width: 100%; height: 100%; cursor: pointer; }
+
+/*# sourceMappingURL=style.css.map */
