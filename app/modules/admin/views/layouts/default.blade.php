@@ -26,6 +26,11 @@
 	{{HTML::script('public/backend/assets/js/jquery-1.11.1.js')}}
 	<!-- BOOTSTRAP SCRIPTS  -->
 	{{HTML::script('public/backend/assets/js/bootstrap.js')}}
+	{{HTML::script('public/backend/assets/js/ckeditor/ckeditor.js')}}
+
+	{{HTML::script('public/backend/assets/js/alert/alertify.js')}}
+	{{HTML::style('public/backend/assets/js/alert/alertify.css')}}
+	{{HTML::style('public/backend/assets/js/alert/semantic.min.css')}}
 
 	@yield('script')
 </body>

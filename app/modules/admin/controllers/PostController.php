@@ -50,15 +50,20 @@ class PostController extends \BaseController {
 		count($sort) == 0 ?  $current = 1 :  $current = $sort->sort +1 ;
 		if(!\Input::has('file')){
 			$path_img = '/public/backend/assets/img/image_thumbnail.gif';
+			$arr_img = explode("/", $path_img);
+			$last_item = end($arr_img);
+			$arr_name_img = explode(".", $last_item);
+			$alt_name = current($arr_name_img);
 		}else{
 			$ha = \Input::get('file');
-			$img = str_replace('/startup/', '', $ha);
+			$img = str_replace('/backend/', '', $ha);
 			$arr_img = explode("/", $img);
 			$name_img = time().'_'.end($arr_img);
-			
+
 			$arr_name_img = explode(".", $name_img);
-			$alt_name = end($arr_name_img);
+			$alt_name = current($arr_name_img);
 			$path = 'public/upload/images/thumb';
+			
 			$rz = \Images::make($img)->resize(100,130)->save($path.'/'.$name_img, 95);
 
 			$path_img = $path.'/'.$name_img;
@@ -149,63 +154,52 @@ class PostController extends \BaseController {
 	{
 		if(!\Input::has('file')){
 			$path_img = \Input::get('img-bk');
+
+			$arr_img = explode("/", $path_img);
+			$last_item = end($arr_img);
+			$arr_name_img = explode(".", $last_item);
+
+			$alt_name = current($arr_name_img);
 		}else{
 			$ha = \Input::get('file');
-			$img = str_replace('/startup/', '', $ha);
+			$img = str_replace('/backend/', '', $ha);
 			$arr_img = explode("/", $img);
 			$name_img = time().'_'.end($arr_img);
 			$path = 'public/upload/images/thumb';
 			$rz = \Images::make($img)->resize(100,130)->save($path.'/'.$name_img, 95);
 
 			$path_img = $path.'/'.$name_img;
+
+			$arr_name_img = explode(".", $name_img);
+			$alt_name = current($arr_name_img);
+
 		}
-		if(\Input::get('addition') == 0){
-			$data = array(
-				'title'=> \Input::get('title'),
-				'slug' => \Unicode::make(\Input::get('title')),
-				'content'=> \Input::get('content'),
-				'cate_id' =>\Input::get('cate_id'),
-				'path_thumb' => $path_img,
-				'show'=> \Input::get('show'),
-				'sort' =>\Input::get('sort'),
-			);
-			$this->post->update($id, $data);
+		$data = array(
+			'title'=> \Input::get('title'),
+			'slug' => \Unicode::make(\Input::get('title')),
+			'content'=> \Input::get('content'),
+			'cate_id' =>\Input::get('cate_id'),
+			'path_thumb' => $path_img,
+			'alt_img'=>$alt_name,
+			'show'=> \Input::get('show'),
+			'sort' =>\Input::get('sort'),
+		);
+		$this->post->update($id, $data);
 
-		}else{
-			$data = array(
-				'title'=> \Input::get('title'),
-				'slug' => \Unicode::make(\Input::get('title')),
-				'content'=> \Input::get('content'),
-				'cate_id' =>\Input::get('cate_id'),
-				'path_thumb' => $path_img,
-				'show'=> \Input::get('show'),
-				'sort' =>\Input::get('sort'),
-			);
-			$this->post->update($id, $data);
+		$post_current = $this->post->find($id);
+		$post_add = $this->post_add->whereGet('post_id',$post_current->id);
+		$count = $post_add->count();
 
-			$post_current = $this->post->find($id);
-			$post_add = $this->post_add->whereGet('post_id',$post_current->id);
-			$count = $post_add->count();
 
+		if($count != 0){
 			$arr_add = \Input::get('attr');
 			$va_add = \Input::get('value_attr');
-			if($count != 0){
-				foreach($post_add as $k => $each){
-					$data = array('key'=>$arr_add[$k], 'slug'=>\Unicode::make($arr_add[$k]), 'value'=>$va_add[$k]);
-					$this->post_add->update($each->id,$data);
-				}
-			}else{
-				$data_arr = array();
-				foreach($arr_add as $k => $v){
-					$data_arr[] = new \Addition(array(
-						'key'=> $v,
-						'slug'=> \Unicode::make($v),
-						'value' => $va_add[$k]
-					));
-				}
-				$post_current->addition()->saveMany($data_arr);
+			foreach($arr_add as $k => $each){
+				$data = array('key'=>$arr_add[$k], 'slug'=>\Unicode::make($arr_add[$k]), 'value'=>$va_add[$k]);
+				$this->post_add->update($each->id,$data);
 			}
 		}
+		
 		\Notification::success('UPDATED !');
 		return \Redirect::route('admin.post.index');
 	}
@@ -259,6 +253,27 @@ class PostController extends \BaseController {
 			$this->post->update($id,$data);
 
 		}
+	}
+
+	public function addmoreAddition($post_id){
+		$array_modal_attr = \Input::get('modal_attr');
+		$array_modal_attr_value = \Input::get('modal_attr_value');
+
+		$data_arr = array();
+		if(\Input::has('modal_attr') || \Input::has('modal_attr_value') ){
+			foreach($array_modal_attr as $k => $v){
+				$data_arr[] = new \Addition(array(
+					'key'=> $v,
+					'slug'=> \Unicode::make($v),
+					'value' => $array_modal_attr_value[$k]
+				));
+			}
+		}
+		
+		$currentPost = $this->post->find($post_id);
+		$currentPost->addition()->saveMany($data_arr);
+		\Notification::success('Done !');
+		return \Redirect::back();
 	}
 
 }

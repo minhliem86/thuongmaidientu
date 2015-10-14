@@ -15,7 +15,7 @@
 					</div>
 					<div class="form-group">
 						<label for="content">Content</label>
-						{{Form::textarea('content',Input::old('content'), array('class' => 'form-control') )}}
+						{{Form::textarea('content',Input::old('content'), array('class' => 'form-control ckeditor') )}}
 					</div>
 					<div class="form-group">
 						<label for="title">Position</label>
@@ -25,11 +25,10 @@
 						<label for="title">Status</label>
 						{{Form::select('show',array('0' => 'hide', '1'=>'show'), Input::old('show'), array('class'=>'form-control') )}}
 					</div>
+					@if(count($post->addition()->get()) != 0 )
 					<fieldset>
 						<legend>Addition Attributes  </legend>
-						<div class="form-group control-addition">
-						{{Form::checkbox('addition',1,false ,array('class'=>'probeProbe'))}}
-						</div>
+						
 						
 						<div class="wrap-area">
 							<div class="area-addition">
@@ -66,12 +65,14 @@
 									@endif
 								</div>
 							</div>  <!--end area-addition -->
-							<div class="form-group form-btn-add clearfix">
-								<button type="button" class="btn btn-primary pull-right btn-add" onclick="addRow()"><i class="glyphicon glyphicon-plus"></i></button>
-							</div>
+							
 						</div>  <!-- end wrap-area-->
 								
 					</fieldset>
+					@endif
+					<div class="form-group form-btn-add clearfix">
+						<button type="button" class="btn btn-primary btn-add" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus"></i> Add more Addition</button>
+					</div>
 				</div>
 						
 				<div class="col-sm-4">
@@ -88,7 +89,7 @@
 						{{Form::hidden('img-bk',$post->path_thumb, array('class'=>'form-control'))}}
 					</div>
 					<div class="form-group form-submit">
-						{{Form::submit('Create', array('class' => 'btn btn-primary pull-right'))}}
+						{{Form::submit('Save Changes', array('class' => 'btn btn-primary pull-right'))}}
 						
 					</div>
 				</div>
@@ -96,12 +97,44 @@
 		</div>
 	</div>
 </div>
+
+<!-- MODAL ADD MORE ADDITION -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add more Addition</h4>
+			</div>
+			{{Form::open(array('route'=>array('admin.post.more_addition',$post->id)) )}}
+			<div class="modal-body" id="modal-addition">
+				<div class="each-addition">
+					<div class="form-group">
+						{{Form::label('Attribute')}}
+						{{Form::text('modal_attr[]','',array('class'=>'form-control '))}}
+					</div>
+					<div class="form-group">
+						{{Form::label('Value')}}
+						{{Form::text('modal_attr_value[]','',array('class'=>'form-control '))}}
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="modal-footer">
+				{{Form::button('Add more',array('class'=>'btn btn-success pull-left','onclick'=>'addRow()') )}}
+				{{Form::submit('Save changes',array('class'=>'btn btn-primary pull-right'))}}
+				
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
+</div>
+
 @stop
 
 @section('script')
-	{{HTML::script('public/backend/assets/js/alert/alertify.js')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.core.css')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.bootstrap.css')}}
 	{{HTML::script('public/backend/assets/js/radio/bootstrap-switch.min.js')}}
 	{{HTML::style('public/backend/assets/js/radio/bootstrap-switch.css')}}
 	<script type="text/javascript">
@@ -151,8 +184,9 @@
 
 			// REMOVE ADD
 			$(".btn-remove").click(function(){
+				var it = $(this)
 				alertify.confirm('This action can not undo ! Are you sure ?', function(e){
-					var id = $(this).attr('alt-id');
+					var id = it.attr('alt-id');
 					$.ajax({
 						url:"{{route('admin.post.remove_addition')}}",
 						type: 'POST',
@@ -161,29 +195,23 @@
 						 	console.log(data.msg);
 						}
 					})
-					$(this).parent().parent().remove();
+					it.parent().parent().remove();
 				});
 			})
 
 		});
 
 		function addRow(){
-			var area = document.getElementById('area');
+			var area = document.getElementById('modal-addition');
 
 			var div1 = document.createElement('div');
-			div1.className="form-group form-addition";
+			div1.className="each-addition";
 
 			var div2 = document.createElement('div');
-			div2.className="row";
+			div2.className="form-group";
 
 			var div3 = document.createElement('div');
-			div3.className="col-sm-5";
-
-			var div4 = document.createElement('div');
-			div4.className="col-sm-5";
-
-			var div5 = document.createElement('div');
-			div5.className="col-sm-2";
+			div3.className="form-group";
 
 			var label1 = document.createElement('label');
 			var text_label1 = document.createTextNode('Attribute');
@@ -191,7 +219,7 @@
 
 			var input1 = document.createElement('input');
 			input1.setAttribute('type','text');
-			input1.setAttribute('name','attr[]');
+			input1.setAttribute('name','modal_attr[]');
 			input1.setAttribute('class','form-control');
 
 			var label2 = document.createElement('label');
@@ -200,13 +228,14 @@
 
 			var input2 = document.createElement('input');
 			input2.setAttribute('type','text');
-			input2.setAttribute('name','value_attr[]');
+			input2.setAttribute('name','modal_attr_value[]');
 			input2.setAttribute('class','form-control');
 
 			var label3 = document.createElement('label');
 			label3.setAttribute('style','opacity:0');
 			var text_label3 = document.createTextNode('Remove');
 			label3.appendChild(text_label3);
+
 			var btn_remove = document.createElement('button');
 			btn_remove.setAttribute('class', 'btn btn-danger pull-right');
 			btn_remove.setAttribute('type', 'button');
@@ -215,23 +244,22 @@
 			btn_remove.appendChild(remove_text);
 
 
+			div2.appendChild(label1);
+			div2.appendChild(input1);
 
-			div3.appendChild(label1);
-			div3.appendChild(input1);
+			div3.appendChild(label2);
+			div3.appendChild(input2);
+			div3.appendChild(btn_remove);
 
-			div4.appendChild(label2);
-			div4.appendChild(input2);
-
-			div5.appendChild(label3);
-			div5.appendChild(btn_remove);
-
-			div2.appendChild(div3);
-			div2.appendChild(div4);
-			div2.appendChild(div5);
-
-			div1.appendChild(div2);
+			div1.appendChild(div2)
+			div1.appendChild(div3)
 
 			area.appendChild(div1);
+		}
+
+		function remove_btn(val){
+			val.parentNode.parentNode.remove();
+			
 		}
 
 		function openKCFinder() {

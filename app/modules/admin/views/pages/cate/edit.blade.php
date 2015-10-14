@@ -36,9 +36,6 @@
 @stop
 
 @section('script')
-	{{HTML::script('public/backend/assets/js/alert/alertify.js')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.core.css')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.bootstrap.css')}}
 	<script type="text/javascript">
 		$(document).ready(function(){
 			{{Notification::showSuccess('alertify.log(":message");') }}

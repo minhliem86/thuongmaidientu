@@ -83,9 +83,7 @@
         <!-- BOOTSTRAP SCRIPTS  -->
         {{HTML::script('public/backend/assets/js/bootstrap.js')}}
         <!-- ALERTIFY -->
-        {{HTML::script('public/backend/assets/js/alert/alertify.js')}}
-        {{HTML::style('public/backend/assets/js/alert/alertify.core.css')}}
-        {{HTML::style('public/backend/assets/js/alert/alertify.bootstrap.css')}}
+
         <script type="text/javascript">
                 {{Notification::showSuccess('alertify.success(":message");') }}
                 {{Notification::showError('alertify.error(":message");') }}

@@ -15,7 +15,7 @@
 					</div>
 					<div class="form-group">
 						<label for="content">Content</label>
-						{{Form::textarea('content',Input::old('content'), array('class' => 'form-control') )}}
+						{{Form::textarea('content',Input::old('content'), array('class' => 'form-control ckeditor') )}}
 					</div>
 					
 					<fieldset>
@@ -47,7 +47,7 @@
 								
 					</fieldset>
 				</div>
-						
+					
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label for="title">Categrory</label>
@@ -71,7 +71,6 @@
 @stop
 
 @section('script')
-	
 	{{HTML::script('public/backend/assets/js/radio/bootstrap-switch.min.js')}}
 	{{HTML::style('public/backend/assets/js/radio/bootstrap-switch.css')}}
 	<script type="text/javascript">
@@ -101,11 +100,6 @@
 			            $(".val_attr").val('');
 			        }
 			});
-
-			// $(".btn-add").click(function(){
-			//     var a = $('.form-addition').html();
-			//     $('.area-addition').append('<div class="form-group form-addition">'+a+'</div>');
-			// })
 		});
 
 		function addRow(){

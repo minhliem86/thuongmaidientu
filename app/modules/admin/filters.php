@@ -92,7 +92,7 @@ Route::filter('csrf', function()
 Route::filter('checkAdmin', function(){
 	if(!\Auth::check()){
 		\Notification::error('Please Login to enter Dashboard');
-		return \Redirect::guest('admin/login')->with('error','Please Login to enter Dashboard');	
+		return \Redirect::guest('admin')->with('error','Please Login to enter Dashboard');	
 	}else{
 		if(!\Auth::user()->can('login')){
 			\Notification::error('You can not access here');

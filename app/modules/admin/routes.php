@@ -9,17 +9,21 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 	// CATE
 	Route::get('category/delete/{id}', array('as' => 'admin.category.delete', 'uses' => 'CategoriesController@delete'))->where(array('id'=>'[0-9]+'));
 	Route::post('category/show',array('as'=>'admin.category.status', 'uses' => 'CategoriesController@status'));
-
+	
 	Route::resource('category', 'CategoriesController');
 	
 	//POST
+	
+
 	Route::post('post/remove-all', array('as'=>'admin.post.removeAll', 'uses'=>'PostController@removeall'));
 	Route::get('post/remove-item/{id}', array('as'=>'admin.post.remove-item', 'uses'=>'PostController@removeitem'))->where('id','[0-9]+');
 	Route::post('post/remove-addition',array('as'=>'admin.post.remove_addition', 'uses'=>'PostController@removeAddition'));
 	Route::post('post/removeAdditionWhere', array('as'=>'admin.post.remove_add_edit', 'uses'=>'PostController@removeAdditionWhere'));
 	Route::post('post/status',array('as'=>'admin.post.status', 'uses'=>'PostController@status'));
+	Route::post('test/more-addition/{post_id}', array('as'=>'admin.post.more_addition', 'uses'=>'PostController@addmoreAddition'))->where('post_id','[0-9]+');
 
 	Route::resource('post','PostController');
+
 
 	// ALBUM
 	Route::post('album/status',array('as'=>'admin.album.status', 'uses'=>'AlbumsController@status'));
@@ -52,21 +56,6 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 
 	Route::resource('user','UsersController');
 
-	//ILA NEWS
-	Route::resource('ila-news','ILANewsController');
-
-	//OUR PEOPLE
-	Route::resource('ourpeople','OurPeopleController');
-
-	//BEN CONNER
-	Route::resource('ben','BenConnerController');
-
-	//BRAND
-	Route::resource('brand-history','BrandController');
-
-	//ILA CN
-	Route::resource('ilacn','ILACNController');	
-
 });
 
 Route::get('admin/account/forget',array('as'=>'admin.account.forget', 'uses'=>'admin\controllers\UsersController@forgotPassword'));
@@ -78,10 +67,10 @@ Route::get('menu',function(){
 	return \View::make('admin::pages.menu');
 });
 
-App::missing(function($exception)
-{
-    return \View::make('admin::pages.404');
-});
+// App::missing(function($exception)
+// {
+//     return \View::make('admin::pages.404');
+// });
 // Route::get('create-user', function(){
 // 	$data = array(
 // 		'email'=>'minhliemphp@gmail.com',

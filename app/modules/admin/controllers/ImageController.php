@@ -66,7 +66,7 @@ class ImageController extends \BaseController {
 			}
 
 			$urlhinh_orgi = $value;
-			$urlhinh = str_replace('/startup/', '', $urlhinh_orgi);
+			$urlhinh = str_replace('backend/', '', $urlhinh_orgi);
 			// $thumb_img = \Image::make($url_thumb)->resize(250,158)->save($this->path_thumb.time().'_thumb_'.$name_thumb);
 			$text = $title_arr[$k];
 			$data[] = array (

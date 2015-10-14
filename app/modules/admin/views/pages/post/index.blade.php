@@ -48,9 +48,6 @@
 @stop
 
 @section('script')
-	{{HTML::script('public/backend/assets/js/alert/alertify.js')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.core.css')}}
-	{{HTML::style('public/backend/assets/js/alert/alertify.bootstrap.css')}}
 	{{HTML::script('public/backend/assets/js/table-bootstrap/bootstrap-table.js')}}
 	{{HTML::style('public/backend/assets/js/table-bootstrap/bootstrap-table.css')}}
 
