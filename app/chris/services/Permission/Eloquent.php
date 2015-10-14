@@ -4,7 +4,7 @@ namespace services\Permission;
 use Permission;
 use services\AbstractEloquent;
 
-class EloquentPermission extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Permission $permission){

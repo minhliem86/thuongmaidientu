@@ -1,7 +1,7 @@
 <?php 
 namespace services\Group;
 
-class EloquentGroup implements RepoInterface{
+class Eloquent implements RepoInterface{
 	public function find($id){
 		return \Sentry::findGroupById($id);
 	}

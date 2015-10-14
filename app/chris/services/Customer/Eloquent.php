@@ -4,7 +4,7 @@ namespace services\Customer;
 use Customer;
 
 
-class EloquentCustomer implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	private $customer;
 
 	public function __construct(Customer $customer){

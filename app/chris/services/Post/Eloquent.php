@@ -4,7 +4,7 @@ namespace services\Post;
 use Post;
 use services\AbstractEloquent;
 
-class EloquentPost extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Post $post){

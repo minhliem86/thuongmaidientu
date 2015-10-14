@@ -4,7 +4,7 @@ namespace services\Role;
 use Role;
 use services\AbstractEloquent;
 
-class EloquentRole extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Role $role){

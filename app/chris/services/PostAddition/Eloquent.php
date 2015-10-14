@@ -4,7 +4,7 @@ namespace services\PostAddition;
 use Addition;
 use services\AbstractEloquent;
 
-class EloquentPostAdd extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Addition $postadd){

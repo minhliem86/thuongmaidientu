@@ -4,7 +4,7 @@ namespace services\Image;
 use Image;
 use services\AbstractEloquent;
 
-class EloquentImage extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Image $model){

@@ -4,7 +4,7 @@ namespace services\User;
 use User;
 use services\AbstractEloquent;
 
-class EloquentUser extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(User $user){

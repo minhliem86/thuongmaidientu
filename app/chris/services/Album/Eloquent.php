@@ -4,7 +4,7 @@ namespace services\Album;
 use Album;
 use services\AbstractEloquent;
 
-class EloquentAlbum extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Album $album){

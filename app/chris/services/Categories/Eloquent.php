@@ -5,7 +5,7 @@ use Category;
 use services\AbstractEloquent;
 
 
-class EloquentCate extends AbstractEloquent implements RepoInterface{
+class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
 	public function __construct(Category $cate){
