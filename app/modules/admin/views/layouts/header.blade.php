@@ -40,8 +40,9 @@
                         <li><a class="{{\Active::setActive(2,'dashboard','menu-top-active')}}"  href="{{URL::route('dashboard')}}">Dashboard</a></li>
                         @if(Auth::user()->hasRole('Super Admin'))
                         <li><a class="{{\Active::setActive(2,'category','menu-top-active')}}" href="{{URL::route('admin.category.index')}}">Categrories</a></li>
-                        <li><a class="{{\Active::setActive(2,'post','menu-top-active')}}" href="{{route('admin.post.index')}}">Posts</a></li>
                         @endif
+                        <li><a class="{{\Active::setActive(2,'post','menu-top-active')}}" href="{{route('admin.post.index')}}">Posts</a></li>
+                        <li><a class="{{\Active::setActive(2,'contact','menu-top-active')}}" href="{{URL::route('admin.contact')}}">Contact Information</a></li>
                         <li><a class="{{\Active::setActive(2,'album','menu-top-active')}}" href="{{route('admin.album.index')}}">Albums</a></li>
                         <li><a class="{{\Active::setActive(2,'image','menu-top-active')}}" href="{{route('admin.image.index')}}">Image</a></li>
                         @if(Auth::user()->hasRole('Super Admin'))

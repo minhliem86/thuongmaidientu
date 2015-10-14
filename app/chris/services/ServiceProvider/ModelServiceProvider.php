@@ -5,10 +5,8 @@ use Illuminate\Support\ServiceProvider;
 
 class ModelServiceProvider extends ServiceProvider{
 	public function register(){
-		$this->app->bind('services\About\RepoInterface','services\About\Eloquent');
 		$this->app->bind('services\Contact\RepoInterface','services\Contact\Eloquent');
 		$this->app->bind('services\Customer\RepoInterface','services\Customer\Eloquent');
-		$this->app->bind('services\Service\RepoInterface','services\Service\Eloquent');
 		$this->app->bind('services\User\RepoInterface','services\User\Eloquent');
 		$this->app->bind('services\Album\RepoInterface','services\Album\Eloquent');
 		$this->app->bind('services\Image\RepoInterface','services\Image\Eloquent');

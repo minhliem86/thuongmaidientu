@@ -13,8 +13,6 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 	Route::resource('category', 'CategoriesController');
 	
 	//POST
-	
-
 	Route::post('post/remove-all', array('as'=>'admin.post.removeAll', 'uses'=>'PostController@removeall'));
 	Route::get('post/remove-item/{id}', array('as'=>'admin.post.remove-item', 'uses'=>'PostController@removeitem'))->where('id','[0-9]+');
 	Route::post('post/remove-addition',array('as'=>'admin.post.remove_addition', 'uses'=>'PostController@removeAddition'));
@@ -47,14 +45,18 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 	Route::get('account/changePassword',array('as'=>'admin.user.changePass', 'uses'=>'UsersController@changePass'));
 	Route::post('account/changePassword',array('as'=>'admin.user.dochangePass', 'uses'=>'UsersController@dochangePass'));
 
-		//ROLE
+	//ROLE
 	Route::get('user/role', array('as'=>'admin.user.createRole', 'uses'=>'UsersController@createRole'));
 	Route::post('user/role', array('as'=>'admin.user.docreateRole', 'uses'=>'UsersController@docreateRole'));
 	Route::get('user/{id}/role/update', array('as'=>'admin.user.updateRole', 'uses'=>'UsersController@updateRole'))->where('id','[0-9]+');
 	Route::post('user/{id}/role/update', array('as'=>'admin.user.doupdateRole', 'uses'=>'UsersController@doupdateRole'))->where('id','[0-9]+');
 	
-
 	Route::resource('user','UsersController');
+
+	// CONTACT INFORMATION
+	Route::get('contact',array('as'=>'admin.contact','uses'=>'ContactController@index') );
+	Route::post('contact',array('as'=>'admin.contact.post','uses'=>'ContactController@post') );
+
 
 });
 
