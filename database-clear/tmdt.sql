@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2015 at 12:19 PM
+-- Generation Time: Oct 16, 2015 at 12:30 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `backend_db`
+-- Database: `tmdt`
 --
 
 -- --------------------------------------------------------
@@ -59,29 +59,44 @@ INSERT INTO `assigned_roles` (`id`, `user_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Table structure for table `catalog`
 --
 
-CREATE TABLE IF NOT EXISTS `categories` (
-`id` int(11) unsigned NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `parent_name` varchar(255) DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL,
-  `show` tinyint(1) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+CREATE TABLE IF NOT EXISTS `catalog` (
+`id` int(11) NOT NULL,
+  `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_bin NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `parent_name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `sort` tinyint(4) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=24 ;
 
 --
--- Dumping data for table `categories`
+-- Dumping data for table `catalog`
 --
 
-INSERT INTO `categories` (`id`, `title`, `slug`, `parent_id`, `parent_name`, `sort`, `show`, `created_at`, `updated_at`) VALUES
-(1, 'About', 'about', 0, NULL, 1, 1, '2015-08-26 01:09:34', '2015-10-13 20:09:11'),
-(2, 'Contact', 'contact', 0, NULL, 2, 1, '2015-08-26 02:14:52', '2015-08-26 02:14:52'),
-(3, 'Services', 'services', 0, NULL, 3, 1, '2015-08-26 02:15:10', '2015-08-26 02:15:10');
+INSERT INTO `catalog` (`id`, `name`, `slug`, `parent_id`, `parent_name`, `sort`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Laptop', 'laptop', 0, 'none', 0, 1, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(2, 'Điện thoại', 'dien-thoai', 0, 'none', 1, 1, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(3, 'Tivi', 'tivi', 0, 'none', 2, 1, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(4, 'Acer', 'acer', 0, 'none', 0, 1, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(5, 'Apple', 'apple', 0, 'none', 1, 0, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(6, 'Asus', 'asus', 0, 'none', 2, 0, '2015-10-09 02:59:55', '2015-10-15 20:34:43'),
+(7, 'Dell', 'dell', 1, 'laptop', 3, 0, '2015-10-09 02:59:55', '2015-10-15 20:26:50'),
+(8, 'HP', 'hp', 1, 'laptop', 5, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(9, 'Apple', 'apple', 2, 'dien-thoai', 0, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(10, 'Asus', 'asus', 2, 'dien-thoai', 1, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(11, 'BlackBerry', 'blackberry', 2, 'dien-thoai', 3, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(12, 'HTC', 'htc', 2, 'dien-thoai', 4, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(13, 'AKAI', 'akai', 3, 'tivi', 0, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(14, 'JVC', 'jvc', 3, 'tivi', 1, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(15, 'LG', 'lg', 3, 'tivi', 2, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(16, 'Panasonic', 'panasonic', 3, 'tivi', 3, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(17, 'Samsung', 'samsung', 3, 'tivi', 5, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53'),
+(18, 'Toshiba', 'toshiba', 3, 'tivi', 6, 0, '2015-10-09 02:59:55', '2015-10-15 20:33:53');
 
 -- --------------------------------------------------------
 
@@ -153,33 +168,42 @@ INSERT INTO `meta` (`id`, `meta_description`, `meta_keyword`, `email_nhanthongti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `meta_copy`
 --
 
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `meta_copy` (
+`id` int(11) unsigned NOT NULL,
+  `meta_description` varchar(255) DEFAULT NULL,
+  `meta_keyword` varchar(255) DEFAULT NULL,
+  `email_nhanthongtin` varchar(125) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data for table `meta_copy`
 --
 
-INSERT INTO `migrations` (`migration`, `batch`) VALUES
-('2015_09_15_030227_confide_setup_users_table', 1),
-('2015_09_15_050006_entrust_setup_tables', 2);
+INSERT INTO `meta_copy` (`id`, `meta_description`, `meta_keyword`, `email_nhanthongtin`, `created_at`, `updated_at`) VALUES
+(1, '', '', 'minhliemphp@gmail.com', '0000-00-00 00:00:00', '2015-04-09 08:03:06');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reminders`
+-- Table structure for table `order`
 --
 
-CREATE TABLE IF NOT EXISTS `password_reminders` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `order` (
+`id` int(255) NOT NULL,
+  `transaction_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `qty` int(11) NOT NULL DEFAULT '0',
+  `amount` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `data` text COLLATE utf8_bin NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -226,41 +250,42 @@ INSERT INTO `permission_role` (`id`, `permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `product`
 --
 
-CREATE TABLE IF NOT EXISTS `posts` (
-`id` int(11) unsigned NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `content` text,
-  `path_image` varchar(255) DEFAULT NULL,
-  `alt_img` varchar(255) DEFAULT NULL,
-  `path_thumb` varchar(255) DEFAULT NULL,
-  `cate_id` int(11) DEFAULT NULL,
-  `cate_name` varchar(255) DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL,
-  `show` tinyint(1) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `product` (
+`id` int(255) NOT NULL,
+  `catalog_id` int(11) NOT NULL,
+  `catalog_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `price` int(15) NOT NULL DEFAULT '0',
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `discount_amount` int(11) NOT NULL,
+  `discount_percent` int(11) NOT NULL,
+  `image_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `hot` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+  `view` int(11) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `inventory` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
--- Table structure for table `post_addition`
+-- Dumping data for table `product`
 --
 
-CREATE TABLE IF NOT EXISTS `post_addition` (
-`id` int(11) unsigned NOT NULL,
-  `key` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `value` text,
-  `post_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `product` (`id`, `catalog_id`, `catalog_name`, `name`, `slug`, `price`, `content`, `discount_amount`, `discount_percent`, `image_link`, `hot`, `view`, `status`, `sort`, `inventory`, `created_at`, `updated_at`) VALUES
+(2, 15, '', 'Tivi LG 4000', 'tivi-lg-4000', 300000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 200000, 0, 'product2.jpg', 0, 2, 1, 1, 100, '0000-00-00 00:00:00', '2015-10-16 01:29:53'),
+(3, 13, '', 'Tivi Akai', 'tivi-akai', 500000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 0, 0, 'product1.jpg', 0, 4, 1, 2, 100, '0000-00-00 00:00:00', '2015-10-16 01:29:56'),
+(4, 16, '', 'Tivi Panasonic', 'tivi-panasonic', 6000000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 0, 0, 'product3.jpg', 0, 0, 1, 3, 100, '0000-00-00 00:00:00', '2015-10-16 01:29:58'),
+(5, 17, '', 'Tivi Samsung', 'tivi-samsung', 5500000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 0, 0, 'product4.jpg', 0, 1, 1, 4, 100, '0000-00-00 00:00:00', '2015-10-16 01:30:01'),
+(6, 15, '', 'Tivi LG 5000', 'tivi-lg-5000', 5000000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 0, 0, 'product5.jpg', 0, 0, 1, 5, 100, '0000-00-00 00:00:00', '2015-10-16 01:30:03'),
+(7, 18, '', 'Tivi Toshiba', 'tivi-toshiba', 6200000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 400000, 0, 'product6.jpg', 0, 8, 1, 6, 100, '0000-00-00 00:00:00', '2015-10-16 01:30:05'),
+(8, 14, '', 'Tivi JVC 500', 'tivi-jvc-500', 10000000, 'Bài viết cho sản phẩm này đang được cập nhật ...', 500000, 0, 'product7.jpg', 0, 68, 1, 7, 100, '0000-00-00 00:00:00', '2015-10-16 01:30:08'),
+(9, 15, '', 'Tivi LG 520', 'tivi-lg-520', 5400000, '<p>\r\n	B&agrave;i viết cho sản phẩm n&agrave;y đang được cập nhật ...</p>\r\n', 0, 0, 'product13.jpg', 0, 16, 1, 8, 100, '0000-00-00 00:00:00', '2015-10-16 01:30:10');
 
 -- --------------------------------------------------------
 
@@ -281,6 +306,27 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', '2015-09-18 00:34:07', '2015-09-18 00:34:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE IF NOT EXISTS `transaction` (
+`id` bigint(20) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `user_email` varchar(50) COLLATE utf8_bin NOT NULL,
+  `user_phone` varchar(20) COLLATE utf8_bin NOT NULL,
+  `amount` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `payment` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `payment_info` text COLLATE utf8_bin NOT NULL,
+  `message` varchar(255) COLLATE utf8_bin NOT NULL,
+  `security` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -326,9 +372,9 @@ ALTER TABLE `assigned_roles`
  ADD PRIMARY KEY (`id`), ADD KEY `assigned_roles_user_id_foreign` (`user_id`), ADD KEY `assigned_roles_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `categories`
+-- Indexes for table `catalog`
 --
-ALTER TABLE `categories`
+ALTER TABLE `catalog`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -350,6 +396,18 @@ ALTER TABLE `meta`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `meta_copy`
+--
+ALTER TABLE `meta_copy`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -362,22 +420,22 @@ ALTER TABLE `permission_role`
  ADD PRIMARY KEY (`id`), ADD KEY `permission_role_permission_id_foreign` (`permission_id`), ADD KEY `permission_role_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `posts`
+-- Indexes for table `product`
 --
-ALTER TABLE `posts`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `post_addition`
---
-ALTER TABLE `post_addition`
- ADD PRIMARY KEY (`id`);
+ALTER TABLE `product`
+ ADD PRIMARY KEY (`id`), ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -400,10 +458,10 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `assigned_roles`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT for table `catalog`
 --
-ALTER TABLE `categories`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+ALTER TABLE `catalog`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `contact`
 --
@@ -420,6 +478,16 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `meta`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `meta_copy`
+--
+ALTER TABLE `meta_copy`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -430,20 +498,20 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `permission_role`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT for table `product`
 --
-ALTER TABLE `posts`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `post_addition`
---
-ALTER TABLE `post_addition`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product`
+MODIFY `id` int(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -457,15 +525,15 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- Constraints for table `assigned_roles`
 --
 ALTER TABLE `assigned_roles`
-ADD CONSTRAINT `assigned_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-ADD CONSTRAINT `assigned_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `assigned_roles_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
+ADD CONSTRAINT `assigned_roles_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `permission_role`
 --
 ALTER TABLE `permission_role`
-ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
-ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+ADD CONSTRAINT `permission_role_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
+ADD CONSTRAINT `permission_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
