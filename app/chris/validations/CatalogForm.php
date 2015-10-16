@@ -3,10 +3,10 @@ namespace validations;
 
 use validations\Baseform\Validator;
 
-class CategoryForm extends Validator{
+class CatalogForm extends Validator{
 	public function rules(){
 		return array(
-			'title'=>'required'
+			'name'=>'required'
 		);
 	}
 } 

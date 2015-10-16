@@ -7,11 +7,20 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 		return  \View::make('admin::pages.dashboard');
 	}));
 	// CATE
-	Route::get('category/delete/{id}', array('as' => 'admin.category.delete', 'uses' => 'CategoriesController@delete'))->where(array('id'=>'[0-9]+'));
-	Route::post('category/show',array('as'=>'admin.category.status', 'uses' => 'CategoriesController@status'));
-	
-	Route::resource('category', 'CategoriesController');
-	
+	Route::get('catalog/delete/{id}', array('as' => 'admin.catalog.delete', 'uses' => 'CatalogController@delete'))->where(array('id'=>'[0-9]+'));
+	Route::post('catalog/show',array('as'=>'admin.catalog.status', 'uses' => 'CatalogController@status'));
+
+	Route::resource('catalog', 'CatalogController');
+
+
+	// PRODUCT
+	Route::get('product/delete/{id}', array('as' => 'admin.product.delete', 'uses' => 'ProductController@delete'))->where(array('id'=>'[0-9]+'));
+	Route::post('product/show',array('as'=>'admin.product.status', 'uses' => 'ProductController@status'));
+	Route::post('product/remove-all', array('as'=>'admin.product.removeAll', 'uses'=>'ProductController@removeall'));
+	Route::get('product/remove-item/{id}', array('as'=>'admin.product.remove-item', 'uses'=>'ProductController@removeitem'))->where('id','[0-9]+');
+
+	Route::resource('product','ProductController');
+
 	//POST
 	Route::post('post/remove-all', array('as'=>'admin.post.removeAll', 'uses'=>'PostController@removeall'));
 	Route::get('post/remove-item/{id}', array('as'=>'admin.post.remove-item', 'uses'=>'PostController@removeitem'))->where('id','[0-9]+');
@@ -34,7 +43,7 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 	Route::get('image/delete/{id}',array ('as'=>'admin.image.delete','before'=>'checkHR', 'uses'=>'ImageController@delete'))->where('id','[0-9]+');
 	Route::post('image/deleteall',array ('as'=>'admin.image.deleteall', 'uses'=>'ImageController@deleteall'));
 	Route::post('image/sort',array ('as'=>'admin.image.sort', 'uses'=>'ImageController@sort'));
-	
+
 	Route::resource('image', 'ImageController');
 
 	// USER
@@ -50,7 +59,7 @@ Route::group(array('prefix' => 'admin', 'namespace' =>'admin\controllers', 'befo
 	Route::post('user/role', array('as'=>'admin.user.docreateRole', 'uses'=>'UsersController@docreateRole'));
 	Route::get('user/{id}/role/update', array('as'=>'admin.user.updateRole', 'uses'=>'UsersController@updateRole'))->where('id','[0-9]+');
 	Route::post('user/{id}/role/update', array('as'=>'admin.user.doupdateRole', 'uses'=>'UsersController@doupdateRole'))->where('id','[0-9]+');
-	
+
 	Route::resource('user','UsersController');
 
 	// CONTACT INFORMATION
@@ -83,3 +92,11 @@ Route::get('menu',function(){
 // 	return "Donee";
 // });
 
+Route::get('createSlug',function(){
+	$pr = \Product::all();
+	foreach($pr as $item){
+		$item->slug = \Unicode::make($item->name);
+		$item->save();
+	}
+	return "Done";
+});

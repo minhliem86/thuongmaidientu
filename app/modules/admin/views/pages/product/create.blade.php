@@ -7,47 +7,43 @@
 			<h4 class="page-head-line">Add New</h4>
 		</div>
 		<div class="row">
-			{{Form::open(array('route'=>'admin.post.store')) }}
+			{{Form::open(array('route'=>'admin.product.store')) }}
 				<div class="col-sm-8">
 					<div class="form-group">
-						<label for="title">Title</label>
-						{{Form::text('title',Input::old('title'), array('class' => 'form-control') )}}
+						<label for="title">Name Product</label>
+						{{Form::text('name',Input::old('name'), array('class' => 'form-control') )}}
 					</div>
 					<div class="form-group">
-						<label for="content">Content</label>
+						<label for="content">Summary Product</label>
 						{{Form::textarea('content',Input::old('content'), array('class' => 'form-control ckeditor') )}}
 					</div>
-					
-					<fieldset>
-						<legend>Addition Attributes  </legend>
-						<div class="form-group control-addition">
-						{{Form::checkbox('addition',1,true ,array('class'=>'probeProbe'))}}
-						</div>
-						
-						<div class="wrap-area">
-							<div class="area-addition" id="area">
-								<div class="form-group form-addition">
-									<div class="row">
-										<div class="col-sm-5">
-											<label for="attr">Attribute</label>
-											{{Form::text('attr[]','', array('class' => 'form-control attr') )}}
-										</div>
-										<div class="col-sm-5">
-											<label for="">Value</label>
-											{{Form::text('value_attr[]','', array('class'=> 'form-control val_attr' ))}}
-										</div>
-										
-									</div>
+					<div class="form-group">
+						<label for="title">Price product</label>
+						{{Form::text('price',Input::old('price'), array('class' => 'form-control') )}}
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="inline">
+									<label for=""><input type="radio" name="check" /> Discount Amout  </label>
+									{{Form::text('amont_value',\Input::old('discount_amount'), array('class'=>'form-control', 'disabled'))}}
 								</div>
-							</div>  <!--end area-addition -->
-							<div class="form-group form-btn-add clearfix">
-								<button type="button" class="btn btn-primary pull-right btn-add" onclick="addRow()"><i class="glyphicon glyphicon-plus"></i></button>
 							</div>
-						</div>  <!-- end wrap-area-->
-								
-					</fieldset>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for=""><input type="radio" name="check" /> Discount Percent  </label>
+									{{Form::text('amont_value',\Input::old('discount_amount'), array('class'=>'form-control','disabled'))}}
+								</div>
+								<div><button class="btn btn-sm pull-right btn-warning"><small>Reset discount</small></button></div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inventory">Inventory</label>
+						{{Form::text('inventory',\Input::get('inventory'), array('class'=>'form-control'))}}
+					</div>
 				</div>
-					
+
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label for="title">Categrory</label>
@@ -61,7 +57,7 @@
 					</div>
 					<div class="form-group form-submit">
 						{{Form::submit('Create', array('class' => 'btn btn-primary pull-right'))}}
-						
+
 					</div>
 				</div>
 			{{Form::close()}}
@@ -171,7 +167,7 @@
 
 		function remove_btn(val){
 			val.parentNode.parentNode.parentNode.remove();
-			
+
 		}
 
 		function openKCFinder() {

@@ -1,6 +1,6 @@
 <?php
 
-namespace services\Categories;
+namespace services\Catalog;
 
 interface RepoInterface{
 

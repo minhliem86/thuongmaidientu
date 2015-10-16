@@ -6,12 +6,11 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<h4 class="page-head-line">Add New</h4>
-				<!-- <form action="" method="post" class="formAddCate"> -->
-				{{Form::open(array('route'=>'admin.category.store', 'class'=>'formAddCate') )}}
+				{{Form::open(array('route'=>'admin.catalog.store', 'class'=>'formAddCate') )}}
 					<div class="form-group">
-						<label for="title">Title Categrory</label>
-						{{Form::text('title',Input::old('title'),array('class'=>'form-control') )}}
-						<span class="error">{{$errors->first('title')}}</span>
+						<label for="title">Catalog</label>
+						{{Form::text('name',Input::old('name'),array('class'=>'form-control') )}}
+						<span class="error">{{$errors->first('name')}}</span>
 					</div>
 					@if($list != null)
 					<div class="form-group">
@@ -26,29 +25,29 @@
 				{{Form::close()}}
 			</div>
 			<div class="col-sm-7">
-				<h4 class="page-head-line">Categrories</h4>
-				@if($cate != null )
+				<h4 class="page-head-line">List Catalog</h4>
+				@if($catalog != null )
 				
 					<table class="table table-striped  table-hover">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Title</th>
+								<th>Name</th>
 								<th>Status</th>
 								<th>Parent</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($cate as $item)
+							@foreach($catalog as $item)
 							<tr>
 								<td></td>
-								<td>{{$item->title}}</td>
+								<td>{{$item->name}}</td>
 								<td width="120px">
 								<button class="btn btn-warning loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-								{{Form::select('show', array('0'=>'hide', '1'=>'show'), $item->show, array('class'=>'form-control', 'id'=>$item->id ) )}}</td>
-								<td> {{ ($item->parent_id != null ? Category::find($item->parent_id)->title : "--" )}}</td>
-								<td><a href="{{URL::route('admin.category.edit',$item->id)}}" class="btn btn-info"> Edit </a>  <a href="{{URL::route('admin.category.delete',$item->id)}}" class="btn btn-danger"> Remove </a></td>
+								{{Form::select('status', array('0'=>'hide', '1'=>'show'), $item->status, array('class'=>'form-control', 'id'=>$item->id ) )}}</td>
+								<td> {{ ($item->parent_id != null ? Catalog::find($item->parent_id)->name : "--" )}}</td>
+								<td><a href="{{URL::route('admin.catalog.edit',$item->id)}}" class="btn btn-info"> Edit </a>  <a href="{{URL::route('admin.catalog.delete',$item->id)}}" class="btn btn-danger"> Remove </a></td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -67,7 +66,7 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
-			{{Notification::showSuccess('alertify.log(":message");') }}
+			{{Notification::showSuccess('alertify.success(":message");') }}
 
 			// SHOW/HIDE
 			$('.loading').hide();
@@ -76,12 +75,12 @@
 				var val = $(this).val();
 				var a = $(this);
 				$.ajax({
-					'url' : "{{route('admin.category.status')}}",
+					'url' : "{{route('admin.catalog.status')}}",
 					'type' : 'POST',
 					'data' : {id:id, value : val},
 					'beforeSend':function(){
-						a.prev().fadeIn();
-						a.hide();
+						// a.prev().fadeIn();
+						// a.hide();
 					},
 					'success': function(){
 						a.prev().fadeOut('fast');

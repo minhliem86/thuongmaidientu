@@ -6,18 +6,18 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<h4 class="page-head-line">Edit Category</h4>
-				{{Form::model($cate, array('route'=>array('admin.category.update', $cate->id), 'method'=>'PUT') )}}
+				{{Form::model($catalog, array('route'=>array('admin.catalog.update', $catalog->id), 'method'=>'PUT') )}}
 					<div class="form-group">
 						<label for="title">Title Categrory</label>
-						{{Form::text('title', Input::old('title'), array('class'=>'form-control'))}}
+						{{Form::text('name', Input::old('name'), array('class'=>'form-control'))}}
 					</div>
 					<div class="form-group">
 						<label for="title">Parent</label>
 						{{Form::select('parent_id', array('0' => 'select parent') + $list,Input::old('parent_id'), array('class'=>'form-control') )}}
 					</div>
 					<div class="form-group">
-						<label for="show">Show</label>
-						{{Form::select('show',array('0'=>'hide', '1'=>'show') , Input::old('show'), array('class'=>'form-control'))}}
+						<label for="show">Status</label>
+						{{Form::select('status',array('0'=>'hide', '1'=>'show') , Input::old('status'), array('class'=>'form-control'))}}
 					</div>
 					
 					<div class="form-group">
@@ -25,7 +25,7 @@
 						{{Form::text('sort', Input::old('sort'), array('class'=>'form-control'))}}
 					</div>
 					<div class="form-group form-submit">
-						{{Form::submit('Apply', array('class'=>'btn btn-primary pull-right'))}}
+						{{Form::submit('Save changes', array('class'=>'btn btn-primary pull-right'))}}
 					</div>
 				{{Form::close()}}
 			</div>
@@ -38,7 +38,7 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
-			{{Notification::showSuccess('alertify.log(":message");') }}
+			{{Notification::showSuccess('alertify.success(":message");') }}
 		})
 	</script>
 @stop

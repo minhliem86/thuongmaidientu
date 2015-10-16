@@ -1,20 +1,19 @@
 <?php
 namespace admin\controllers;
 
-use services\Categories\RepoInterface as Cate;
+use services\Catalog\RepoInterface as Catalog;
 
-use validations\CategoryForm;
+use validations\CatalogForm;
 use validations\CustomException\FormValidationException;
 
-class CategoriesController extends \BaseController {
+class CatalogController extends \BaseController {
 
-	protected $cate;
+	protected $catalog;
 	protected $validation;
 
-	public function __construct(Cate $cate, CategoryForm $form){
-		$this->cate = $cate;
+	public function __construct(Catalog $catalog, CatalogForm $form){
+		$this->catalog = $catalog;
 		$this->validation = $form;
-		$this->beforeFilter('checkHR',array('only'=>'index'));
 	}
 	/**
 	 * Display a listing of the resource.
@@ -23,9 +22,9 @@ class CategoriesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$cate = $this->cate->select_all();
-		$list = $this->cate->select_list('title','id');
-		return \View::make("admin::pages.cate.index")->with(compact('cate','list'));
+		$catalog = $this->catalog->select_all();
+		$list = $this->catalog->select_list('name','id');
+		return \View::make("admin::pages.catalog.index")->with(compact('catalog','list'));
 	}
 
 
@@ -54,7 +53,7 @@ class CategoriesController extends \BaseController {
 			return \Redirect::back()->withInput()->withErrors($e->getErrors());
 		}
 
-		$sort = $this->cate->OrderFirst('id','DESC');
+		$sort = $this->catalog->OrderFirst('id','DESC');
 		if(isset($sort)){
 			$current = $sort->sort + 1;
 		}else{
@@ -63,22 +62,22 @@ class CategoriesController extends \BaseController {
 
 		if(!\Input::has('parent_id')){
 			$data = array(
-				'title'=>\Input::get('title'),
-				'show'=>1,
-				'slug'=> \Unicode::make(\Input::get('title')),
+				'name'=>\Input::get('name'),
+				'status'=>1,
+				'slug'=> \Unicode::make(\Input::get('name')),
 				'sort'=>$current,
 			);
 		}else{
 			$data = array(
-				'title'=>\Input::get('title'),
+				'name'=>\Input::get('name'),
 				'parent_id' => \Input::get('parent_id'),
-				'parent_name' => $this->cate->find(\Input::get('parent_id'))->slug,
-				'slug'=> \Unicode::make(\Input::get('title')),
-				'show'=>1,
+				'parent_name' => $this->catalog->find(\Input::get('parent_id'))->slug,
+				'slug'=> \Unicode::make(\Input::get('name')),
+				'status'=>1,
 				'sort'=>$current,
 			);
 		}
-		$this->cate->create($data);
+		$this->catalog->create($data);
 
 		\Notification::success('CREATED !');
 		return \Redirect::back();
@@ -105,10 +104,10 @@ class CategoriesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$cate = $this->cate->find($id);
-		$list = $this->cate->select_list('title','id');
+		$catalog = $this->catalog->find($id);
+		$list = $this->catalog->select_list('name','id');
 
-		return \View::make('admin::pages.cate.edit')->with(compact('cate', 'list'));
+		return \View::make('admin::pages.catalog.edit')->with(compact('catalog', 'list'));
 	}
 
 
@@ -127,17 +126,29 @@ class CategoriesController extends \BaseController {
 		catch(FormValidationException $e){
 			return \Redirect::back()->withInput()->withErrors($e->getErrors());
 		}
-		$data = array(
-			'title'=>\Input::get('title'),
-			'slug'=> \Unicode::make(\Input::get('title')),
-			'parent_id' => \Input::get('parent_id'),
-			'show'=>\Input::get('show'),
-			'sort'=>\Input::get('sort'),
-		);
-		$this->cate->update($id, $data);
+
+		if(\Input::get('parent_id') != 0 ){
+			$data = array(
+				'name'=>\Input::get('name'),
+				'slug'=> \Unicode::make(\Input::get('name')),
+				'parent_id' => \Input::get('parent_id'),
+				'parent_name' => $this->catalog->find(\Input::get('parent_id'))->slug,
+				'status'=>\Input::get('status'),
+				'sort'=>\Input::get('sort'),
+			);
+		}else{
+			$data = array(
+				'name'=>\Input::get('name'),
+				'slug'=> \Unicode::make(\Input::get('name')),
+				'status'=>\Input::get('status'),
+				'sort'=>\Input::get('sort'),
+			);
+		}
+		
+		$this->catalog->update($id, $data);
 		
 		\Notification::success('UPDATED !');
-		return \Redirect::route('admin.category.index');
+		return \Redirect::route('admin.catalog.index');
 	}
 
 
@@ -153,7 +164,7 @@ class CategoriesController extends \BaseController {
 	}
 
 	public function delete($id){
-		$this->cate->delete($id);
+		$this->catalog->delete($id);
 
 		\Notification::success('DELETED !');
 		return \Redirect::back();
@@ -166,9 +177,9 @@ class CategoriesController extends \BaseController {
 			$id = \Input::get('id');
 			$val = \Input::get('value');
 			$data = array(
-				'show' => $val,
+				'status' => $val,
 			);
-			$this->cate->update($id, $data);
+			$this->catalog->update($id, $data);
 			// return \Respone::json(array('status'=>''))
 		}
 	}

@@ -12,7 +12,11 @@
 		"intervention/image": "2.*",
 		"edvinaskrucas/notification": ">=2",
 		"zizaco/confide": "~4.3@dev",
-		"zizaco/entrust": "1.2.*@dev"
+		"zizaco/entrust": "1.2.*@dev",
+		"gloudemans/shoppingcart": "~1.2",
+		"ignited/laravel-omnipay": "1.*",
+		"omnipay/common": "~2.3.0",
+		"omnipay/paypal": "*"
 	},
 	"autoload": {
 		"psr-4":{
@@ -29,7 +33,10 @@
 			"app/tests/TestCase.php",
 			"app/myLib",
 			"app/modules"
-		]
+		],
+		"psr-0": {
+	            	"Ignited\\LaravelOmnipay": "src/"
+	    	}
 	},
 	"scripts": {
 		"post-install-cmd": [

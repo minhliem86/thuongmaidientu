@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => '43Xdha1kdPl3VIQtesq9J3NCMVrv4lxf',
+	'key' => 'vjqBfosbJcMstPniU06vagOV6cJOQDX5',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -128,7 +128,9 @@ return array(
 		'services\ServiceProvider\ModelServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
-		'Zizaco\Confide\ServiceProvider'
+		'Zizaco\Confide\ServiceProvider',
+		'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
+		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider'
 		
 	),
 
@@ -201,7 +203,9 @@ return array(
 		'Images' => 'Intervention\Image\Facades\Image',
 		'Notification' => 'Krucas\Notification\Facades\Notification',
 		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
-		'Confide'    => 'Zizaco\Confide\Facade'
+		'Confide'    => 'Zizaco\Confide\Facade',
+		'Cart'            => 'Gloudemans\Shoppingcart\Facades\Cart',
+		'Omnipay' => 'Ignited\LaravelOmnipay\Facades\OmnipayFacade'
 	),
 
 );

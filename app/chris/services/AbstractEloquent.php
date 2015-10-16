@@ -2,9 +2,10 @@
 namespace services;
 
 abstract class AbstractEloquent{
-	
-	public function select_all(){
-		return $this->model->all();
+
+	public function select_all(array $with=array()){
+		$query = $this->make($with);
+		return $query->get();
 	}
 
 	public function create($data){

@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'backend_db',
+			'database'  => 'tmdt',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',

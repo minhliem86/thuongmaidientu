@@ -1,15 +1,15 @@
 <?php 
-namespace services\Categories;
+namespace services\Product;
 
-use Category;
+use Product;
 use services\AbstractEloquent;
 
 
 class Eloquent extends AbstractEloquent implements RepoInterface{
 	protected $model;
 
-	public function __construct(Category $cate){
-		$this->model = $cate;
+	public function __construct(Product $product){
+		$this->model = $product;
 	}
 
 	public function whereFirst($column,$con){
