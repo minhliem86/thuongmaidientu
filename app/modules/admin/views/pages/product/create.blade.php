@@ -19,22 +19,21 @@
 					</div>
 					<div class="form-group">
 						<label for="title">Price product</label>
-						{{Form::text('price',Input::old('price'), array('class' => 'form-control') )}}
+						{{Form::text('price',Input::old('price'), array('class' => 'form-control', 'id'=>'price') )}}
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="inline">
-									<label for=""><input type="radio" name="check" /> Discount Amout  </label>
-									{{Form::text('amont_value',\Input::old('discount_amount'), array('class'=>'form-control', 'disabled'))}}
+									<label for=""><input type="radio" name="check" value="amount" /> Discount Amout  </label>
+									{{Form::text('amount_value',\Input::old('discount_amount'), array('class'=>'form-control', 'disabled'))}}
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for=""><input type="radio" name="check" /> Discount Percent  </label>
-									{{Form::text('amont_value',\Input::old('discount_amount'), array('class'=>'form-control','disabled'))}}
+									<label for=""><input type="radio" name="check" value="percent" /> Discount Percent  </label>
+									{{Form::text('percent_value',\Input::old('discount_percent'), array('class'=>'form-control','disabled'))}}
 								</div>
-								<div><button class="btn btn-sm pull-right btn-warning"><small>Reset discount</small></button></div>
 							</div>
 						</div>
 					</div>
@@ -42,12 +41,16 @@
 						<label for="inventory">Inventory</label>
 						{{Form::text('inventory',\Input::get('inventory'), array('class'=>'form-control'))}}
 					</div>
+					<div class="form-group">
+						<label for="hot">Hot item</label>
+						{{Form::checkbox('hot','1',Input::old('hot') )}}
+					</div>
 				</div>
 
 				<div class="col-sm-4">
 					<div class="form-group">
-						<label for="title">Categrory</label>
-						{{Form::select('cate_id',$list,0,array('class'=> 'form-control') )}}
+						<label for="title">Catalog</label>
+						{{Form::select('catalog_id',$list,0,array('class'=> 'form-control') )}}
 
 					</div>
 					<div class="form-group">
@@ -69,6 +72,7 @@
 @section('script')
 	{{HTML::script('public/backend/assets/js/radio/bootstrap-switch.min.js')}}
 	{{HTML::style('public/backend/assets/js/radio/bootstrap-switch.css')}}
+	{{HTML::script('public/backend/assets/js/autoNumeric-min.js')}}
 	<script type="text/javascript">
 		$(document).ready( function(){
 			$(".cb-enable").click(function(){
@@ -96,6 +100,22 @@
 			            $(".val_attr").val('');
 			        }
 			});
+
+			$("input[name='check']").change(function(){
+				var thiss = $(this);
+				var value =  thiss.val();
+				if(value == 'amount'){
+					$('input[name="amount_value"]').prop('disabled',false);
+					$('input[name="percent_value"]').prop('disabled',true);
+					$('input[name="percent_value"]').val('0');
+				}
+				if(value == 'percent'){
+					$('input[name="amount_value"]').prop('disabled',true);
+					$('input[name="percent_value"]').prop('disabled',false);
+					$('input[name="amount_value"]').val('0');
+				}
+			})
+			$("#price").autoNumeric('init');
 		});
 
 		function addRow(){

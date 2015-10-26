@@ -15,7 +15,7 @@
 				<thead>
 					<tr>
 						<th data-checkbox="true"></th>
-						<!-- <th data-field="id">ID</th> -->
+						<th data-field="id" class="hidden">ID</th>
 						<th data-field="title">Title</th>
 						<th data-field="parent">Ma</th>
 						<th data-field="price">Price</th>
@@ -28,10 +28,10 @@
 					@foreach($product as $item)
 					<tr>
 						<td></td>
-						<!-- <td>{{$item->id}}</td> -->
+						<td class="hidden">{{$item->id}}</td>
 						<td>{{$item->name}}</td>
 						<td> {{$item->catalog()->first()->name}} </td>
-						<td> {{$item->price}} </td>
+						<td> {{number_format($item->price)}} </td>
 						<td> {{$item->inventory}} </td>
 						<td >
 						<button style="display:none" class="btn btn-warning loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
